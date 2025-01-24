@@ -1,26 +1,34 @@
-Welcome to the NextJS 13 base template bootstrapped using the `create-next-app`. This template supports TypeScript, but you can use normal JavaScript as well.
+# nextjs-universal-api-demo
+
+This is a demo application showcasing the Universal API for Real Estate CRMs from Rollout. The app is built using Next.js 13 and demonstrates how to integrate and use Rollout's Universal API to interact with various real estate CRM systems.
+
+## Features
+
+- Integration with Rollout's Universal API
+- Authentication using Rollout Link
+- Fetching and displaying people data from connected CRMs
+- Adding new contacts to the CRM
+
+## Tech Stack
+
+- Next.js 13
+- React
+- TypeScript
+- Tailwind CSS
 
 ## Getting Started
 
-Hit the run button to start the development server.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up your environment variables:
+   - Copy `.env.example` to a new file called `.env`
+   - Update the following variables in `.env`:
+     - `ROLLOUT_ISSUER_ID`: Your Rollout issuer ID
+     - `ROLLOUT_JWT_SECRET`: Your JWT signing secret
+4. Run the development server: `npm run dev`
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+For more detailed instructions and API usage, please refer to the Rollout documentation.
 
-[Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) allow you to create custom request handlers for a given route using the Web Request and Response APIs.
+## License
 
-The `app/api` directory is mapped to `/api/*`. Folders in this directory with files named `route.ts` are treated as [Route handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) instead of pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-## Productionizing your Next App
-
-To make your next App run smoothly in production make sure to deploy your project with [Repl Deployments](https://docs.replit.com/hosting/deployments/about-deployments)!
-
-You can also produce a production build by running `npm run build` and [changing the run command](https://docs.replit.com/programming-ide/configuring-repl#run) to `npm run start`.
-# nextjs-universal-api-demo
-# nextjs-universal-api-demo
+MIT License

@@ -24,55 +24,46 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Generate or retrieve userId from localStorage
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
-      // Check for existing credentials
-      fetch(`/api/user-data?userId=${storedUserId}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data && Object.keys(data).length > 0) {
-            // Get the last added credential
-            const credentials = Object.entries(data);
-            const [lastCredentialApp, lastCredentialId] = credentials[credentials.length - 1];
-            setCredentialId(lastCredentialId);
-            if (lastCredentialId) {
-              // Fetch people data with the last credential
-              fetchPeople();
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching user data:', error);
-        });
     } else {
       const newUserId = crypto.randomUUID();
       localStorage.setItem('userId', newUserId);
       setUserId(newUserId);
-      // Initialize user data in Redis
-      initializeUserData(newUserId);
     }
-    getToken();
   }, []);
 
-  const initializeUserData = async (userId: string) => {
-    try {
-      const response = await fetch('/api/user-data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId })
-      });
-      
-      if (!response.ok) {
-        console.error('Failed to initialize user data');
-      }
-    } catch (error) {
-      console.error('Error initializing user data:', error);
+  useEffect(() => {
+    if (userId) {
+      getToken();
     }
-  };
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId) {
+      fetch('https://universal.rollout.com/api/credentials', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.length > 0) {
+            const lastCredential = data[0];
+            if (lastCredential && lastCredential.id) {
+              setCredentialId(lastCredential.id);
+            }
+          }
+          // Handle the response data here
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('Error fetching credentials:', error);
+        });
+    }
+  }, [token]);
+
 
   useEffect(() => {
     if (credentialId && token) {
@@ -128,27 +119,6 @@ export default function Home() {
   const handleCredentialAdded = async ({ id, appKey }) => {
     console.log(id, appKey);
     setCredentialId(id);
-    
-    // Store the credential mapping in Redis
-    try {
-      const response = await fetch('/api/user-data', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId,
-          appName: appKey,
-          credentialId: id
-        })
-      });
-      
-      if (!response.ok) {
-        console.error('Failed to store credential mapping');
-      }
-    } catch (error) {
-      console.error('Error storing credential mapping:', error);
-    }
   };
 
   if (loading) {
@@ -185,7 +155,7 @@ export default function Home() {
         {credentialId && (
           <>
             {/* Add this button above the table */}
-            <div className="flex justify-end mb-16">
+            <div className="flex justify-end mt-16">
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -194,7 +164,7 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Add the modal */}
+            {/* Add the new lead modal */}
             {isModalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
                 <div className="bg-white rounded-lg p-6 w-full max-w-md">
@@ -330,6 +300,8 @@ export default function Home() {
                 </div>
               </div>
             )}
+
+
             <div className="mt-8">
               <h2 className="text-xl font-semibold mb-4">People Records</h2>
 

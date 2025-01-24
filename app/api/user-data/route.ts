@@ -1,6 +1,10 @@
 import { Redis } from '@upstash/redis'
 import { NextResponse } from 'next/server';
 
+interface UserData {
+  [appName: string]: string;
+}
+
 const redis = new Redis({
   url: process.env.UPSTASH_URL,
   token: process.env.UPSTASH_TOKEN,
@@ -60,10 +64,10 @@ export async function PATCH(request: Request) {
     }
 
     // Get existing data
-    const existingData = await redis.get(userId) || {};
+    const existingData: UserData = JSON.parse(await redis.get(userId) || '{}');
     
     // Update with new data
-    const updatedData = {
+    const updatedData: UserData = {
       ...existingData,
       [appName]: credentialId
     };

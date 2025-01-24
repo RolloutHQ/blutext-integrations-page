@@ -35,11 +35,9 @@ export default function Home() {
           if (data && Object.keys(data).length > 0) {
             // Get the last added credential
             const credentials = Object.entries(data);
-            const [lastCredential, lastCredentialId] = credentials[credentials.length - 1];
+            const [lastCredentialApp, lastCredentialId] = credentials[credentials.length - 1];
             setCredentialId(lastCredentialId);
-            // Set token from the last credential
-            if (lastCredential.token) {
-              setToken(lastCredential.token);
+            if (lastCredentialId) {
               // Fetch people data with the last credential
               fetchPeople();
             }
@@ -187,7 +185,7 @@ export default function Home() {
         {credentialId && (
           <>
             {/* Add this button above the table */}
-            <div className="flex justify-end mt-8">
+            <div className="flex justify-end mb-16">
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"

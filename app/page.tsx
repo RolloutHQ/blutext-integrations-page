@@ -149,7 +149,10 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center p-4">
       <div className="max-w-[600px] w-full">
         <RolloutLinkProvider token={token}>
-          <CredentialsManager onCredentialAdded={handleCredentialAdded} />
+          <CredentialsManager
+            apiCategories={{ crm: true }}
+            onCredentialAdded={handleCredentialAdded}
+          />
         </RolloutLinkProvider>
 
         {credentialId && (

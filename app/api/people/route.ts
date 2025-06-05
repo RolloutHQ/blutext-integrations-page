@@ -12,8 +12,9 @@ export async function GET() {
     if (!rolloutToken) {
       return NextResponse.json({ error: "No token provided" }, { status: 401 });
     }
-    console.log("RO token", rolloutToken);
-    console.log("RO credential", credentialId);
+    if (!credentialId) {
+      return NextResponse.json({ error: "No credential ID provided" }, { status: 400 });
+    }
 
     await wait(2000);
 
@@ -56,6 +57,9 @@ export async function POST(request: Request) {
     if (!rolloutToken) {
       return NextResponse.json({ error: "No token provided" }, { status: 401 });
     }
+    if (!credentialId) {
+      return NextResponse.json({ error: "No credential ID provided" }, { status: 400 });
+    }
 
     const body = await request.json();
 
@@ -65,7 +69,7 @@ export async function POST(request: Request) {
         method: "POST",
         headers: {
           Authorization: `Bearer ${rolloutToken}`,
-          "x-rollout-credential-id": credentialId!,
+          "x-rollout-credential-id": credentialId,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),

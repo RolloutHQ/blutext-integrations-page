@@ -1,4 +1,4 @@
-# nextjs-universal-api-demo
+# blutext-integrations-page
 
 This is a demo application showcasing the Universal API for Real Estate CRMs from Rollout. The app is built using Next.js 13 and demonstrates how to integrate and use Rollout's Universal API to interact with various real estate CRM systems.
 
@@ -23,9 +23,11 @@ This is a demo application showcasing the Universal API for Real Estate CRMs fro
 3. Set up your environment variables:
    - Copy `.env.example` to a new file called `.env`
    - Update the following variables in `.env`:
-     - `ROLLOUT_ISSUER_ID`: Your Rollout issuer ID
-     - `ROLLOUT_JWT_SECRET`: Your JWT signing secret
-4. Run the development server: `npm run dev`
+     - `ROLLOUT_CLIENT_ID`: Your Rollout client ID
+     - `ROLLOUT_CLIENT_SECRET`: Your Rollout client secret
+4. Configure credential-added webhook (optional):
+   - Open `components/HomeClient.tsx` and set the `WEBHOOK_URL` constant to your endpoint.
+5. Run the development server: `npm run dev`
 
 For more detailed instructions and API usage, please refer to the Rollout documentation.
 

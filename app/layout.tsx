@@ -16,7 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className="w-full flex items-center justify-center py-2">
+          <img src="/logo.png" alt="BluText logo" className="h-8" />
+        </header>
+        {children}
+      </body>
     </html>
   )
 }

@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-universal-api-demo",
+  "name": "blutext-integrations-page",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@rollout/link-react": "^0.5.1",
-    "@upstash/redis": "^1.34.3",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.4",
     "react": "^18",

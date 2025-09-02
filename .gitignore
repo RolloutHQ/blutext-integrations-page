@@ -6,6 +6,10 @@ out/
 
 .env*
 
+# Local tool metadata and cache (do not publish)
+.config/
+cache/
+
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
